@@ -1,26 +1,27 @@
 import express from 'express'
-import sessionRoutes from './src/routes/session.js'
+import apiRoutes from './src/routes/apiRoutes.js'
 import session from 'express-session'
-import sessionFileStore from 'session-file-store'
-
-const fileStore =sessionFileStore(session)
+import MongoStore from 'connect-mongo'
+import './src/db/database.js'
+import './src/passport/local.js'
+import passport from 'passport'
 const app = express()
+
 app.set('views','./src/views')
 app.set('view engine','ejs')
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+
 app.use(session({
     saveUninitialized:false,
     resave:false,
     secret:'secret',
-    store: new fileStore({path:'./sesiones', ttl:60}),
-    cookie:{maxAge:60000}
+    store: MongoStore.create({mongoUrl:'mongodb+srv://Rausch:123654@cluster0.apqg8hx.mongodb.net/sessionMongoAtlas?retryWrites=true&w=majority'})
 }))
-app.use('/',sessionRoutes)
-app.get('/',(req,res)=>{
-    console.log(req.session.usuario)
-    res.send(`Bienvenido ${req.session.usuario}`)
-})
+app.use('/',apiRoutes)
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 const PORT = 8080
 app.listen(PORT,()=>{
