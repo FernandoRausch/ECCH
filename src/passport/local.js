@@ -27,10 +27,10 @@ passport.use('login', new LocalStrategy({
     passReqToCallback: true
 }, async (req, nombre, password, done) => {
     const usuarioBD = await Usuarios.findOne({ nombre })
-    if (usuarioBD) {
+    if (!usuarioBD) {
         return done(null, false)
     }
-    done(null, usuarioNuevo)
+    done(null, usuarioBD)
 }
 ))
 

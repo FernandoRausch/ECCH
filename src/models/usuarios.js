@@ -7,7 +7,7 @@ const usuarioSchema = new mongoose.Schema({
     correo:String
 })
 usuarioSchema.methods.encriptar = (contrasena)=>{
-    return bcrypt.hashSync(contrasena.bcrypt.genSaltSync(5))
+    return bcrypt.hashSync(contrasena,bcrypt.genSaltSync(5))
 }
 
 
