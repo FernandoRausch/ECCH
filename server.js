@@ -5,7 +5,15 @@ import MongoStore from 'connect-mongo'
 import './src/db/database.js'
 import './src/passport/local.js'
 import passport from 'passport'
-const app = express()
+import 'dotenv/config'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
+const app = express()   
+const yargs2 = yargs(hideBin(process.argv))
+
+const args = yargs2.alias({p:'PORT'})
+                 .default({p:8080})
+                 .argv
 
 app.set('views','./src/views')
 app.set('view engine','ejs')
@@ -16,14 +24,14 @@ app.use(session({
     saveUninitialized:false,
     resave:false,
     secret:'secret',
-    store: MongoStore.create({mongoUrl:'mongodb+srv://Rausch:123654@cluster0.apqg8hx.mongodb.net/sessionMongoAtlas?retryWrites=true&w=majority'})
+    store: MongoStore.create({mongoUrl:`mongodb+srv://${process.env.BD_USER}:${process.env.BD_PASSWORD}@cluster0.apqg8hx.mongodb.net/sessionMongoAtlas?retryWrites=true&w=majority`})
 }))
 app.use('/',apiRoutes)
 app.use(passport.initialize())
 app.use(passport.session())
 
 
-const PORT = 8080
-app.listen(PORT,()=>{
-    console.log(`Escuchando el puerto ${PORT}`)
+
+app.listen(args.PORT,()=>{
+    console.log(`Escuchando el puerto ${args.PORT}`)
 })

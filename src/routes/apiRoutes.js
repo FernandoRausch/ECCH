@@ -40,4 +40,9 @@ router.get('/errorLogin', (req, res) => {
     res.render('errorLogin')
 })
 
+router.get('/info', (req, res) => {
+    res.render('datos')
+})
+
+
 export default router
