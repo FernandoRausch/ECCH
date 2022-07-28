@@ -12,7 +12,8 @@
     <h3>Process ID:</h3><p> <%=process.pid%> </p>
     <h3>Version de node.js:</h3><p> <%=process.version%> </p>
     <h3>Sistema operativo:</h3><p> <%=process.platform%> </p>
-    <h3>Memoria total reservada:</h3><p> <%=process.memoryUsage()%> </p>
+    <h3>Memoria total reservada:</h3><p> <%=process.memoryUsage().rss%> </p>
     <h3>Path de ejecucion:</h3><p> <%=process.execPath%> </p>
+    <h3>Argumentos de entrada:</h3><p> <%=process.argV%> </p>
 </body>
 </html>

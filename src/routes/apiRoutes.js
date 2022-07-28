@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from 'passport';
+import {fork} from 'child_process'
 const router = Router()
 
 
@@ -44,5 +45,16 @@ router.get('/info', (req, res) => {
     res.render('datos')
 })
 
+router.get('/api/randoms', (req, res) => {
+    const quantity = req.query.quantity || 100000000
+    const child = fork("./src/helper.js")
+    child.send(quantity)
+    child.on("message",(msg)=>{
+        res.send(msg)
+    })
+    child.on("exit",(code)=>{
+        console.log("Process finished", code)
+    })
+})
 
 export default router
