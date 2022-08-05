@@ -4,10 +4,12 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import './src/db/database.js'
 import './src/passport/local.js'
+import './logger.js'
 import passport from 'passport'
 import 'dotenv/config'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
+import compression from 'compression'
 const app = express()   
 const yargs2 = yargs(hideBin(process.argv))
 
@@ -17,6 +19,7 @@ const args = yargs2.alias({p:'PORT'})
 
 app.set('views','./src/views')
 app.set('view engine','ejs')
+app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
@@ -29,7 +32,10 @@ app.use(session({
 app.use('/',apiRoutes)
 app.use(passport.initialize())
 app.use(passport.session())
-
+app.get('*',(req,res)=>{
+    logger.warn('Esta URL no existe')
+    res.send('Esta URL no existe')
+})
 
 
 app.listen(args.PORT,()=>{
