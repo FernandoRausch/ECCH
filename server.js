@@ -36,8 +36,6 @@ app.get('*',(req,res)=>{
     logger.warn('Esta URL no existe')
     res.send('Esta URL no existe')
 })
-
-
 app.listen(args.PORT,()=>{
     console.log(`Escuchando el puerto ${args.PORT}`)
 })

@@ -7,6 +7,7 @@ log4js.configure({
         logsFileWarn:{type:'file',filename:'warn.log'}
     },
     categories:{
+        default:{appenders:['logsConsola'],level:'info'},
         info:{appenders:['logsConsola'],level:'info'},
         error:{appenders:['logsFileError','logsConsola'],level:'error'},
         warn:{appenders:['logsFileWarn','logsConsola'],level:'warn'}
