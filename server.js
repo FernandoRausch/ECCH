@@ -14,7 +14,7 @@ const app = express()
 const yargs2 = yargs(hideBin(process.argv))
 
 const args = yargs2.alias({p:'PORT'})
-                 .default({p:8080})
+                 .default({p:process.env.PORT || 8080})
                  .argv
 
 app.set('views','./src/views')
