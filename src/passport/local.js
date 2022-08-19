@@ -16,6 +16,11 @@ passport.use('registro', new LocalStrategy({
     const usuarioNuevo = new Usuarios()
     usuarioNuevo.nombre = nombre
     usuarioNuevo.contrasena = usuarioNuevo.encriptar(password)
+    usuarioNuevo.correo = req.body.email
+    usuarioNuevo.direccion = req.body.direccion
+    usuarioNuevo.edad = req.body.edad
+    usuarioNuevo.telefono = req.body.telefono
+    usuarioNuevo.avatar = req.body.avatar
     await usuarioNuevo.save()
     done(null, usuarioNuevo)
 }

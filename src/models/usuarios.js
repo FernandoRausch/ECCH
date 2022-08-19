@@ -4,7 +4,11 @@ import bcrypt from 'bcrypt'
 const usuarioSchema = new mongoose.Schema({
     nombre:String,
     contrasena:String,
-    correo:String
+    correo:String,
+    direccion:String,
+    edad:Number,
+    telefono:String,
+    avatar:String
 })
 usuarioSchema.methods.encriptar = (contrasena)=>{
     return bcrypt.hashSync(contrasena,bcrypt.genSaltSync(5))
