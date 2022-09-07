@@ -1,0 +1,10 @@
+import bcrypt from "bcrypt";
+
+export const encryptPassword = async (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(5));
+};
+
+export const comparePassword = async (password, hash) => {
+    console.log(password, hash);
+    return bcrypt.compareSync(password, hash); // retorna true o false
+  };
